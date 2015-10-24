@@ -126,7 +126,7 @@ The testng-*.xml files describe which classes to run for each test suite. Each t
 The test suites can be run by:
 
 1. Eclipse (via the TestNG Eclipse plugin) - right click a testng-*.xml file in Eclipse and choose "Run As > TestNG Suite"
-2. Maven command line - navigate to the root folder of the project (with pom.xml) and execute "mvn clean package integration-test"
+2. Maven command line (via the maven-failsafe-plugin) - navigate to the root folder of the project, where the pom.xml file resides, and execute "mvn clean package integration-test"
 
 ## License
 

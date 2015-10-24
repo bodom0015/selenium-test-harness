@@ -115,9 +115,10 @@ README.md (this readme file)
 ```
 
 ## Usage
-The test suites can be run:
-1. in Eclipse (via the TestNG Eclipse plugin) - right click a testng-*.xml file in Eclipse and choose "Run As > TestNG Suite"
-2. via Maven command line - navigate to the root folder of the project (with pom.xml) and execute "mvn clean package integration-test"
+The test suites can be run by:
+
+1. Eclipse (via the TestNG Eclipse plugin) - right click a testng-*.xml file in Eclipse and choose "Run As > TestNG Suite"
+2. Maven command line - navigate to the root folder of the project (with pom.xml) and execute "mvn clean package integration-test"
 
 ## License
 

@@ -27,6 +27,7 @@ You should then be able to import the project / pom.xml into a Maven-capable IDE
 ## Setup
 There are two .properties files for which the test harness will check.
 
+#### environment.properties
 NOTE: Most of these binaries will require you to install the browser to use its driver (headless browsers excluded)
 
 The first file is `src/main/resources/environment.properties`, which tells the test harness where to look for 
@@ -51,6 +52,7 @@ opera.binary=C:/full/path/to/Opera/launcher.exe
 # Edge and Safari will probably require a similar setup
 ```
 
+#### credentials.properties
 You must then supply the test harness with a set of valid Wolfram Development Platform credentials to use for the test.
 
 To create a Wolfram Development Platform account:

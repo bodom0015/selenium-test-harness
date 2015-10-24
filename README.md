@@ -1,7 +1,7 @@
 ## Quick Setup
 * Sign up for an account on the [Wolfram Development Platform](http://www.wolframcloud.com/)
 * Download and install [Apache Maven 3](https://maven.apache.org/index.html)
-* Add a `credentials.properties` (described in more detail below) file with both valid and invalid test credentials
+* Add a `credentials.properties` (described in more detail below) file to `src/main/resources/` with both valid and invalid test credentials
   * For example, a finished `credentials.properties` file might look like this:
 ```ini
 test.user.valid.email=INSERT_REAL_WDP_LOGIN_EMAIL_HERE
@@ -9,7 +9,7 @@ test.user.valid.password=INSERT_REAL_WDP_LOGIN_PASSWORD_HERE
 test.user.invalid.email=fake@fake.com
 test.user.invalid.password=123password
 ```
-* Add an `environment.properties` file with paths to the appropriate binaries
+* Add an `environment.properties` file to `src/main/resources/` with paths to the appropriate binaries
   * The WebDriver binaries themselves can be downloaded [here](http://www.seleniumhq.org/download/)
   * Point the properties in the file (described in more detail below) to the location of the binaries downloaded
   * For example, a finished `environment.properties` file (for Windows 7) might look like this:

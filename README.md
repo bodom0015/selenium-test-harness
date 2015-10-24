@@ -1,3 +1,27 @@
+## Quick Setup
+
+* Sign up for an account on the [Wolfram Development Platform]().
+* Add a [credentials.properties](https://github.com/bodom0015/selenium-test-harness#credentials.properties) file with both valid and invalid test credentials.
+  * Fore example, a finished `credentials.properties` file might looks like this:
+```ini
+test.user.valid.email=INSERT_REAL_WOLFRAM_LOGIN_EMAIL_HERE
+test.user.valid.password=INSERT_REAL_WOLFRAM_LOGIN_PASSWORD_HERE
+test.user.invalid.email=fake@fake.com
+test.user.invalid.password=123password
+```
+
+* Add an [environment.properties](https://github.com/bodom0015/selenium-test-harness#environment.properties) file with paths to the appropriate binaries.
+  * The WebDriver binaries themselves can be downloaded [here](http://www.seleniumhq.org/download/). 
+  * Point the properties described [here](https://github.com/bodom0015/selenium-test-harness#environment.properties) to the location of the binaries downloaded.
+  * For example, a finished `environment.properties` file (for Windows 7) might looks like this:
+```ini
+webdriver.chrome.driver=C:/full/path/to/chromedriver.exe
+webdriver.ie.driver=C:/full/path/to/IEDriverServer.exe
+phantomjs.binary.path=C:/full/path/to/phantomjs.exe
+webdriver.opera.driver=C:/full/path/to/operadriver.exe
+opera.binary=C:/full/path/to/Opera/launcher.exe
+```
+
 ## Synopsis
 
 A selenium automated test harness with a simple example test suite for the Wolfram Development Platform.
@@ -36,8 +60,27 @@ You should then be able to import the project / `pom.xml` into a Maven-capable I
 ## Setup
 There are two `.properties` files for which the test harness will check.
 
+#### credentials.properties
+You must then supply the test harness with a set of valid Wolfram Development Platform credentials to use for the test.
+
+To create a Wolfram Development Platform account:
+
+1. Go to Wolfram Cloud (www.wolframcloud.com)
+2. Click Wolfram Development Platform. Please create a new Wolfram ID, and you can subscribe to a Free plan
+
+Place these new login credentials into the `src/main/resources/credentials.properties` file:
+```ini
+# Valid user credentials (must be registered for Wolfram Development Platform)
+test.user.valid.email=INSERT_REAL_WOLFRAM_LOGIN_EMAIL_HERE
+test.user.valid.password=INSERT_REAL_WOLFRAM_LOGIN_PASSWORD_HERE
+
+# Invalid user credentials
+test.user.invalid.email=fake@fake.com
+test.user.invalid.password=123password
+```
+
 #### environment.properties
-NOTE: Most of these binaries will require you to install the browser to use its driver (headless browsers excluded)
+NOTE: Most of these binaries will require you to install the full browser in addition to the WebDriver (headless browsers excluded)
 
 The first file is `src/main/resources/environment.properties`, which tells the test harness where to look for 
 the various pieces necessary for a particular WebDriver to execute.
@@ -61,25 +104,6 @@ opera.binary=C:/full/path/to/Opera/launcher.exe
 # Edge and Safari will probably require a similar setup
 
 # Exceptions: Firefox and HtmlUnit require no additional setup
-```
-
-#### credentials.properties
-You must then supply the test harness with a set of valid Wolfram Development Platform credentials to use for the test.
-
-To create a Wolfram Development Platform account:
-
-1. Go to Wolfram Cloud (www.wolframcloud.com)
-2. Click Wolfram Development Platform. Please create a new Wolfram ID, and you can subscribe to a Free plan
-
-Place these new login credentials into the `src/main/resources/credentials.properties` file:
-```ini
-# Valid user credentials (must be registered for Wolfram Development Platform)
-test.user.valid.email=INSERT_REAL_WOLFRAM_LOGIN_EMAIL_HERE
-test.user.valid.password=INSERT_REAL_WOLFRAM_LOGIN_PASSWORD_HERE
-
-# Invalid user credentials
-test.user.invalid.email=fake@fake.com
-test.user.invalid.password=123password
 ```
 
 ## Overview

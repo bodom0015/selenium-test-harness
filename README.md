@@ -118,7 +118,9 @@ pom.xml (Maven project configuration and dependency information)
 README.md (this readme file)
 ```
 
-The AUT's PageObjects can be found in `com.wolfram.cloud`. The PageObjects are each based on the abstract `WebPage` class, which uses the `PageFactory.initElements(driver, this)` method within its constructor to populate the PageObjects with WebElement references. Simple private methods call the lower-level functionality of the page (click a button, type into a field, etc.), while the public methods chain together the private methods to the desired overall action.
+The AUT's (Application Under Test's) PageObjects can be found in `com.wolfram.cloud`. The PageObjects are each based on the abstract `WebPage` class, which uses the `PageFactory.initElements(driver, this)` method within its constructor to populate the PageObjects with WebElement references. Simple private methods call the lower-level functionality of the page (click a button, type into a field, etc.), while the public methods chain together the private methods to the desired overall action.
+
+The testng-*.xml files describe which classes to run for each test suite. Each test class takes a single parameter named `browser` that will tell the test harness which driver to use while running that particular test class.
 
 ## Usage
 The test suites can be run by:

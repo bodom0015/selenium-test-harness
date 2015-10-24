@@ -43,3 +43,4 @@ target/
 
 # TestNG / ReportNG output
 test-output/
+test-screenshots/

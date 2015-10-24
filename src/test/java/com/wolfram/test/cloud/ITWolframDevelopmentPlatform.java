@@ -2,12 +2,8 @@ package com.wolfram.test.cloud;
 
 import static org.testng.Assert.*;
 
-import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import com.wolfram.cloud.CloudLandingPage;
@@ -36,10 +32,21 @@ import com.wolfram.test.SeleniumTestBase;
  * test-class-per-page. Given the current scope of tested material, this scheme seemed appropriate.</p>
  */
 public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
-    private SignInPage signIn;
-    private DevPlatformHomePage devPlatformHome;
-    private NotebookViewPage noteBookView;
+    /** Name for the group which tests the CloudLandingPage */
+    private static final String TEST_GROUP_1 = "landing";
 
+    /** Name for the group which tests the SignInPage, expecting failure  */
+    private static final String TEST_GROUP_2 = "invalidSignin";
+
+    /** Name for the group which tests the SignInPage, expecting success */
+    private static final String TEST_GROUP_3 = "validSignin";
+
+    /** Name for the group which tests the DevPlatformHomePage */
+    private static final String TEST_GROUP_4 = "devPlatformHome";
+
+    /** Name for the group which tests the NotebookViewPage */
+    private static final String TEST_GROUP_5 = "notebook";
+    
     // Read in credential info from credentials.properties
     // TODO: Assumes existence of this file... this could be a little more elegant
 	private static final ResourceBundle rb = ResourceBundle.getBundle("credentials");
@@ -54,42 +61,23 @@ public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
 	private static String INVALID_TEST_EMAIL = rb.getString("test.user.invalid.email");
 	private static String INVALID_TEST_PASSWORD = rb.getString("test.user.invalid.password");
 	
-	// This hash is saved between tests
-	private String notebookHash;
-			
-	/**
-	 * Sets up our testing environment by instantiating a new driver to use.
-	 * The "browser" parameter is specified in the different testng-*.xml found
-	 * in src/test/resources. 
-	 */
-	@Parameters({ "browser" })
-	@BeforeClass
-	public void initializeBrowser(String browser) {
-		// Call initializeDriver for the given browser type
-		this.driver = this.initializeDriver(browser);
-				
-		/*
-		 * Any other options that we may want to
-		 * include for ONLY this test class could go here 
-		 */
-	}
+	/** Our current instance of the sign-in page */
+    private SignInPage signIn;
 
-	/**
-	 * Tears down our test environment, which should close out all open browser windows.
-	 * 
-	 * NOTE: this is currently broken for Opera.
-	 */
-	@AfterClass
-	public void closeBrowserWindows() {
-		// FIXME: this does not seem to work for Opera...
-		this.driver.quit();
-	}
+	/** Our current instance of the dev platform home page */
+    private DevPlatformHomePage devPlatformHome;
+    
+	/** Our current instance of the ntoebook view page */
+    private NotebookViewPage noteBookView;
+
+    /** Our newly created notebook's hash (once we create it) */
+	private String notebookHash;
 
 	/**
 	 * Ensure that the user is taken to the landing page, and that they
 	 * can then navigate to the sign-in page.
 	 */
-	@Test(groups="landing")
+	@Test(groups=TEST_GROUP_1)
 	public void testCloudLandingPage() {
 		 // Navigate to the start page
         driver.get(CloudLandingPage.START_URL);
@@ -99,7 +87,13 @@ public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
         assertEquals(driver.getTitle(), CloudLandingPage.PAGE_TITLE);
 		
 		// Click "Wolfram Development Platform" and ensure that we land on the signin page
-        landing.chooseWolframDevelopmentPlatform();
+        signIn = landing.chooseWolframDevelopmentPlatform();
+        
+        /* 
+         * NOTE: the test framework will never get to this assertion in a failure case, 
+         * as it will timeout while waiting for the page title before reaching this statement.
+         * I include this assertion to be explicit about which page we end up on
+         */
         assertEquals(driver.getTitle(), SignInPage.PAGE_TITLE);
 	}
 	
@@ -107,7 +101,7 @@ public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
 	 * Ensure that attempting to sign-in with an incorrect email address
 	 * does not allow the user access to the home page.
 	 */
-	@Test(groups="invalidSignin", dependsOnGroups="landing")
+	@Test(groups=TEST_GROUP_2, dependsOnGroups=TEST_GROUP_1)
 	public void testSignInPageInvalidEmail() {
 		//driver.get(SignInPage.getPageUrl(oAuthToken));
 		driver.get(SignInPage.START_URL);
@@ -120,7 +114,7 @@ public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
 	 * Ensure that attempting to sign-in with an incorrect password
 	 * does not allow the user access to the home page.
 	 */
-	@Test(groups="invalidSignin", dependsOnGroups="landing")
+	@Test(groups=TEST_GROUP_2, dependsOnGroups=TEST_GROUP_1)
 	public void testSignInPageInvalidPassword() {
 		//driver.get(SignInPage.getPageUrl(oAuthToken));
 		driver.get(SignInPage.START_URL);
@@ -133,7 +127,7 @@ public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
 	 * Ensure that attempting to sign-in with an incorrect email address
 	 * and an incorrect password does not allow the user access to the home page.
 	 */
-	@Test(groups="invalidSignin", dependsOnGroups="landing")
+	@Test(groups=TEST_GROUP_2, dependsOnGroups=TEST_GROUP_1)
 	public void testSignInPageInvalidEmailAndPassword() {
 		//driver.get(SignInPage.getPageUrl(oAuthToken));
 		driver.get(SignInPage.START_URL);
@@ -146,7 +140,7 @@ public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
 	 * Ensure that signing-in with valid credentials allows
 	 * the user access to the home page.
 	 */
-	@Test(groups="validSignin", dependsOnGroups="invalidSignin")
+	@Test(groups=TEST_GROUP_3, dependsOnGroups=TEST_GROUP_2)
 	public void testSignInPage() {
 		//driver.get(SignInPage.getPageUrl(oAuthToken));
 		driver.get(SignInPage.START_URL);
@@ -159,7 +153,7 @@ public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
 	 * Ensure that once signed into the WDP home page, 
 	 * the user can create a new notebook.
 	 */
-	@Test(groups="devPlatformHome", dependsOnGroups="validSignin")
+	@Test(groups=TEST_GROUP_4, dependsOnGroups=TEST_GROUP_3)
 	public void testDevPlatformHomePage() {
 		driver.get(DevPlatformHomePage.START_URL);
         noteBookView = devPlatformHome.createNewNotebook();
@@ -171,7 +165,7 @@ public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
 	/**
 	 * Ensure that if a new notebook is created, its default file extension is ".nb".
 	 */
-	@Test(groups="notebook", dependsOnGroups="devPlatformHome")
+	@Test(groups=TEST_GROUP_5, dependsOnGroups=TEST_GROUP_4)
 	public void testNotebookViewPage() {
 		driver.get(NotebookViewPage.generateFullUrl(notebookHash));
         noteBookView = noteBookView.readNotebookDefaultName();

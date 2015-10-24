@@ -50,6 +50,8 @@ webdriver.opera.driver=C:/full/path/to/operadriver.exe
 opera.binary=C:/full/path/to/Opera/launcher.exe
 
 # Edge and Safari will probably require a similar setup
+
+# Exceptions: Firefox and HtmlUnit require no additional setup
 ```
 
 #### credentials.properties

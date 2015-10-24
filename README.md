@@ -1,6 +1,6 @@
 ## Quick Setup
-* Download and install [Apache Maven 3](https://maven.apache.org/index.html)
 * Sign up for an account on the [Wolfram Development Platform](http://www.wolframcloud.com/)
+* Download and install [Apache Maven 3](https://maven.apache.org/index.html)
 * Add a `credentials.properties` (described in more detail below) file with both valid and invalid test credentials
   * For example, a finished `credentials.properties` file might look like this:
 ```ini

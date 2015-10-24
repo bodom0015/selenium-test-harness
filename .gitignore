@@ -43,6 +43,3 @@ target/
 
 # TestNG / ReportNG output
 test-output/
-
-# Ignore enviornment / credentials config
-*.properties

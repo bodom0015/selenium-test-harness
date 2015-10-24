@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Wolfram Cloud Test Suite (Firefox)">
+  <!-- Works perfectly everytime out of the box -->
+  <test name="Firefox Test">
+    <parameter name="browser" value="Firefox"/>
+    <classes>
+      <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+    </classes>
+  </test>
+</suite>

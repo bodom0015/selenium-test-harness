@@ -1,0 +1,2 @@
+# Ignore enviornment / credentials config
+*.properties

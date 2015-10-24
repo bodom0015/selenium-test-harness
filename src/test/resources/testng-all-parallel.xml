@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Multi Browser Test Suite (Parallel)" parallel="tests">
+  <!-- Works perfectly everytime out of the box -->
+  <test name="Firefox Test">
+    <parameter name="browser" value="Firefox"/>
+    <classes>
+      <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+    </classes>
+  </test>
+  <!-- This should work perfectly after a bit of setup -->
+  <test name="Chrome Test">
+    <parameter name="browser" value="Chrome"/>
+    <classes>
+      <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+    </classes>
+  </test>
+  
+  <!-- Intermittent failures: very rarely has issues clicking on the first link, and occasionally fails to verify correct page title -->
+  <test name="Internet Explorer Test">
+    <parameter name="browser" value="IE"/>
+    <classes>
+      <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+    </classes>
+  </test>
+   
+  <!-- Intermittent failures: often and with mysterious error "failed to close UI debuggers" -->
+  <test name="Opera Test">
+    <parameter name="browser" value="Opera"/>
+    <classes>
+      <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+    </classes>
+  </test>
+  
+  <!-- PhantomJS-2.0.0: all tests seemed to be passing, but tests run EXCRUTIATINGLY slowly for some reason -->
+  <!-- PhantomJS-1.9.8: has issues verifying that elements on the page are clickable in the same way that firefox/chrome/opera do -->
+  <test name="PhantomJS Test">
+    <parameter name="browser" value="PhantomJS"/>
+    <classes>
+      <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+    </classes>
+  </test>
+  
+  <!-- HtmlUnitDriver has some issues signing in with valid credentials -->
+  <test name="HtmlUnit Test">
+   <parameter name="browser" value="HtmlUnit"/>
+   <classes>
+     <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+   </classes>
+ </test>
+ 
+  <!-- MAC OSX only -->
+  <!-- 
+  <test name="Safari Test">
+    <parameter name="browser" value="Safari"/>
+    <classes>
+      <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+    </classes>
+  </test>
+  -->
+    
+  <!-- Windows 10 only -->
+  <!-- 
+  <test name="Edge Test">
+    <parameter name="browser" value="Edge"/>
+    <classes>
+      <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+    </classes>
+  </test>
+  -->
+</suite>

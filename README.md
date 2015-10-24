@@ -23,7 +23,7 @@ opera.binary=C:/full/path/to/Opera/launcher.exe
 * Perform one of the following to begin test execution:
   1. Via Maven command line
     1. Open a terminal (cmd.exe / Cygwin) and navigate to the project root
-    2. Execute `mvn clean package integration-test`, which will read the `pom.xml` and use the settings within to compile the project. This file also defines which `testng-*.xml` suite (or suites) will run during this phase
+    2. Execute `mvn clean package integration-test`, which will read the `pom.xml` and use the settings within to compile the project and run a pre-defined `testng-*.xml` suite (or set of suites)
     3. After the `package` goal completes and the Java project is compiled, the tests will automatically begin execution (the `integration-test` goal)
   2. Via Eclipse IDE (Download Eclipse from [here](https://eclipse.org/downloads/))
     1. Install Eclipse m2e plugin from the Eclipse Marketplace

@@ -1,6 +1,6 @@
 ## Quick Setup
-* Install [Apache Maven 3](https://maven.apache.org/index.html)
-* Sign up for an account on the [Wolfram Development Platform]().
+* Download and install [Apache Maven 3](https://maven.apache.org/index.html)
+* Sign up for an account on the [Wolfram Development Platform](http://www.wolframcloud.com/)
 * Add a [credentials.properties](https://github.com/bodom0015/selenium-test-harness#credentials.properties) file with both valid and invalid test credentials.
   * Fore example, a finished `credentials.properties` file might look like this:
 ```ini
@@ -22,15 +22,13 @@ opera.binary=C:/full/path/to/Opera/launcher.exe
 ```
 * Perform one of the following to begin test execution:
   1. Via Maven command line
-    1. Open a terminal (cmd.exe / Cygwin)
-    2. Navigate to the project root
-    3. Execute `mvn clean package integration-test`, which will read the `pom.xml` and use the settings within to compile the project. This file also defines which `testng-*.xml` suite (or suites) will run during this phase
-    4. After the `package` goal completes and the Java project is compiled, the tests will automatically begin execution (the `integration-test` goal)
+    1. Open a terminal (cmd.exe / Cygwin) and navigate to the project root
+    2. Execute `mvn clean package integration-test`, which will read the `pom.xml` and use the settings within to compile the project. This file also defines which `testng-*.xml` suite (or suites) will run during this phase
+    3. After the `package` goal completes and the Java project is compiled, the tests will automatically begin execution (the `integration-test` goal)
   2. Via Eclipse IDE (Download Eclipse from [here](https://eclipse.org/downloads/))
     1. Install Eclipse m2e plugin from the Eclipse Marketplace
     2. Install Eclipse TestNG plugin from the Eclipse Marketplace
-    3. Expand the `src/test/resources` folder and right-click one of the `testng-*.xml` suites there
-    4. Choose `Run As > TestNG Suite` to begin running the tests
+    3. Expand the `src/test/resources` folder and right-click one of the `testng-*.xml` suites and choose `Run As > TestNG Suite` to begin running the tests
   
 ## Synopsis
 

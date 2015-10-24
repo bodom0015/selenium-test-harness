@@ -73,11 +73,11 @@ After setting up the two .properties files as described above, our directory / p
 ```
 src/main/java
 +-- [com.wolfram]
-|   +-- [core]
+|   +-- [core] (the core concepts of the automation harness)
 |   |   +-- BrowserType (an enum representing all possible web browsers)
 |   |   +-- IWebDriverProvider (interface providing a standardway to initialize a WebDriver)
 |   |   +-- WebPage (an abstract superclass for our PageObjects)
-|   +-- [test]
+|   +-- [test] (the core test classes of the automation harness)
 |   |   +-- SeleniumTestBase (a primitive superclass for all Selenium tests)
 |   |   +-- providers (instantiation logic for all IWebDriverProvider implementations)
 |   |      +-- ChromeDriverProvider (Google Chrome environment / settings)
@@ -88,7 +88,7 @@ src/main/java
 |   |      +-- OperaDriverProvider (Opera environment / settings)
 |   |      +-- PhantomJSDriverProvider (PhantomJS environment / settings)
 |   |      +-- SafariDriverProvider (Apple Safari environment / settings)
-|   +-- [cloud] (the actual pages we wish to test)
+|   +-- [cloud] (the actual PageObjects we wish to test)
 |      +-- CloudLandingPage
 |      +-- SignInPage
 |      +-- DevPlatformHomePage
@@ -113,6 +113,8 @@ src/test/resources
 pom.xml (Maven project configuration and dependency information)
 README.md (this readme file)
 ```
+
+The AUT's PageObjects can be found in `com.wolfram.cloud`. The PageObjects are each based on the abstract `WebPage` class, which uses the `PageFactory.initElements(driver, this)` method within its constructor to populate the PageObjects with WebElement references. Simple private methods call the lower-level functionality of the page (click a button, type into a field, etc.), while the public methods chain together the private methods to the desired overall action.
 
 ## Usage
 The test suites can be run by:

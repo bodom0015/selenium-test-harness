@@ -113,13 +113,17 @@ public abstract class SeleniumTestBase {
 	 */
 	@AfterMethod
 	public void takeScreenshotOfTestResult() throws IOException {
-		// Source: Save a screenshot to the temp folder (environment-specific)
-		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		
-		// Destination: TEST_OUTPUT_DIR, following the formatting outlined above
-		File destFile = new File(TEST_OUTPUT_DIR, this.currentTestName + "-" + this.browserType.toString() + ".png");
-		
-		// Perform the file copy
-		FileUtils.copyFile(scrFile, destFile);
+		if (this.driver instanceof TakesScreenshot) {
+			// Source: Save a screenshot to the temp folder (environment-specific)
+			File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			
+			// Destination: TEST_OUTPUT_DIR, following the formatting outlined above
+			File destFile = new File(TEST_OUTPUT_DIR, this.browserType.toString() + "-" + this.currentTestName  + ".png");
+			
+			// Perform the file copy
+			FileUtils.copyFile(scrFile, destFile);
+		} else {
+			System.out.println("'Take Screenshot' operation not available in browser type: " + this.browserType.toString());
+		}
 	}
 }

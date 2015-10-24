@@ -1,19 +1,18 @@
 ## Quick Setup
-
+* Install [Apache Maven 3](https://maven.apache.org/index.html)
 * Sign up for an account on the [Wolfram Development Platform]().
 * Add a [credentials.properties](https://github.com/bodom0015/selenium-test-harness#credentials.properties) file with both valid and invalid test credentials.
-  * Fore example, a finished `credentials.properties` file might looks like this:
+  * Fore example, a finished `credentials.properties` file might look like this:
 ```ini
-test.user.valid.email=INSERT_REAL_WOLFRAM_LOGIN_EMAIL_HERE
-test.user.valid.password=INSERT_REAL_WOLFRAM_LOGIN_PASSWORD_HERE
+test.user.valid.email=INSERT_REAL_WDP_LOGIN_EMAIL_HERE
+test.user.valid.password=INSERT_REAL_WDP_LOGIN_PASSWORD_HERE
 test.user.invalid.email=fake@fake.com
 test.user.invalid.password=123password
 ```
-
 * Add an [environment.properties](https://github.com/bodom0015/selenium-test-harness#environment.properties) file with paths to the appropriate binaries.
   * The WebDriver binaries themselves can be downloaded [here](http://www.seleniumhq.org/download/). 
   * Point the properties described [here](https://github.com/bodom0015/selenium-test-harness#environment.properties) to the location of the binaries downloaded.
-  * For example, a finished `environment.properties` file (for Windows 7) might looks like this:
+  * For example, a finished `environment.properties` file (for Windows 7) might look like this:
 ```ini
 webdriver.chrome.driver=C:/full/path/to/chromedriver.exe
 webdriver.ie.driver=C:/full/path/to/IEDriverServer.exe
@@ -21,7 +20,18 @@ phantomjs.binary.path=C:/full/path/to/phantomjs.exe
 webdriver.opera.driver=C:/full/path/to/operadriver.exe
 opera.binary=C:/full/path/to/Opera/launcher.exe
 ```
-
+* Perform one of the following to begin test execution:
+  1. Via Maven command line
+    1. Open a terminal (cmd.exe / Cygwin)
+    2. Navigate to the project root
+    3. Execute `mvn clean package integration-test`, which will read the `pom.xml` and use the settings within to compile the project. This file also defines which `testng-*.xml` suite (or suites) will run during this phase
+    4. After the `package` goal completes and the Java project is compiled, the tests will automatically begin execution (the `integration-test` goal)
+  2. Via Eclipse IDE
+    1. Install Eclipse m2e plugin from the Eclipse Marketplace
+    2. Install Eclipse TestNG plugin from the Eclipse Marketplace
+    3. Expand the `src/test/resources` folder and right-click one of the `testng-*.xml` suites there
+    4. Choose `Run As > TestNG Suite` to begin running the tests
+  
 ## Synopsis
 
 A selenium automated test harness with a simple example test suite for the Wolfram Development Platform.

@@ -13,7 +13,7 @@ In order to familiarize myself with Selenium automation, I have attempted to aut
 6. Create a .nb notebook.
 7. In the new notebook, in the file header, click the file name field, "(unnamed)" -- you will see that the extension, ".nb" is automatically present.
 
-In doing so, this test harness was born. This project can be used as a model project or skeleton to set-up automated multi-browser testing using Selenium and TestNG.
+In doing so, this test harness was born. This project can be used as a model or skeleton to set-up automated multi-browser testing using Selenium and TestNG.
 
 ## Installation
 

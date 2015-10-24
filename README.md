@@ -4,6 +4,7 @@ A selenium automated test harness with an example test suite for the Wolfram Dev
 
 ## Motivation
 In order to familiarize myself with Selenium automation, I have attempted to automate the following steps using the Selenium framework:
+
 1. Go to Wolfram Cloud (www.wolframcloud.com).
 2. After signing in successfully, you will be taken to what we call, the Homescreen.
 3. From the Homescreen, users can create new notebooks, upload files, etc.</li>
@@ -24,8 +25,13 @@ git clone https://github.com/bodom0015/selenium-test-harness.git
 ## Setup
 There are two .properties files for which the test harness will check.
 
+NOTE: Most of these binaries will require you to install the browser to use its driver (headless browsers excluded)
+
 The first file is `src/main/resources/environment.properties`, which tells the test harness where to look for 
 the various pieces necessary for particular WebDrivers to execute.
+
+You can download the various different binary versions here: http://www.seleniumhq.org/download/.
+
 ```ini
 # ChromeDriver
 webdriver.chrome.driver=C:/full/path/to/chromedriver.exe
@@ -39,15 +45,18 @@ phantomjs.binary.path=C:/full/path/to/phantomjs.exe
 # OperaDriver
 webdriver.opera.driver=C:/full/path/to/operadriver.exe
 opera.binary=C:/full/path/to/Opera/launcher.exe
+
+# Edge and Safari will probably require a similar setup
 ```
 
 You must then supply the test harness with a set of valid Wolfram Development Platform credentials to use for the test.
 
 To create a Wolfram Development Platform account:
+
 1. Go to Wolfram Cloud (www.wolframcloud.com)
 2. Click Wolfram Development Platform. Please create a new Wolfram ID, and you can subscribe to a Free plan
 
-src/main/resources/credentials.properties:
+Place these new login credentials into the `src/main/resources/credentials.properties` file:
 ```ini
 # Valid user credentials (must be registered for Wolfram Development Platform)
 test.user.valid.email=INSERT_REAL_WOLFRAM_LOGIN_EMAIL_HERE

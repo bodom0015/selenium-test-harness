@@ -1,6 +1,6 @@
 ## Synopsis
 
-This is a simple configurable alert queue for AngularJS.
+A selenium automated test harness with an example test suite for the Wolfram Development Platform
 
 ## Motivation
 In order to familiarize myself with Selenium automation, I have attempted to automate the following steps using the Selenium framework:
@@ -61,6 +61,7 @@ test.user.invalid.password=123password
 ## Overview
 After setting up the two .properties files as described above, our directory / package structure should now look like this:
 
+```
 src/main/java
 +-- [com.wolfram]
 |   +-- [core]
@@ -102,6 +103,7 @@ src/test/resources
 +-- testng-edge.xml (Test Suite which only runs tests in Edge)
 pom.xml (Maven project configuration and dependency information)
 README.md (this readme file)
+```
 
 ## Usage
 The test suites can be run:

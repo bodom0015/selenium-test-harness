@@ -22,6 +22,8 @@ Running the following command should retrieve a copy of the source code:
 git clone https://github.com/bodom0015/selenium-test-harness.git
 ```
 
+You should then be able to import the project / pom.xml into a Maven-capable IDE of your choosing (for example, Eclipse).
+
 ## Setup
 There are two .properties files for which the test harness will check.
 

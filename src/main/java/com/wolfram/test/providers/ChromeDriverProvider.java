@@ -1,5 +1,6 @@
 package com.wolfram.test.providers;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.openqa.selenium.WebDriver;
@@ -17,8 +18,11 @@ import com.wolfram.core.IWebDriverProvider;
  *
  */
 public final class ChromeDriverProvider implements IWebDriverProvider {
-	/** The path to the chromedriver binary */
-	private static final String CHROME_BINARY_PATH = "webdriver.chrome.driver";
+	/** The name of the .properties file from which to read driver binary paths */
+	private static final String ENV_BUNDLE_NAME = "environment";
+	
+	/** The key in the above .properties file for the chrome driver binary */
+	private static final String CHROME_BINARY_KEY = "webdriver.chrome.driver";
 
 	/** The current singleton instance */
 	private static ChromeDriverProvider instance;
@@ -48,12 +52,20 @@ public final class ChromeDriverProvider implements IWebDriverProvider {
 			return driver;
 		}
 		
-		ResourceBundle rb = ResourceBundle.getBundle("environment");
-		System.setProperty(CHROME_BINARY_PATH, rb.getString(CHROME_BINARY_PATH));
+		try {
+			ResourceBundle rb = ResourceBundle.getBundle("environment");
+			System.setProperty(CHROME_BINARY_KEY, rb.getString(CHROME_BINARY_KEY));
+		} catch (MissingResourceException e) {
+			throw new IllegalArgumentException("Cannot start ChromeDriver: Driver binary not found. Verify " 
+					+ "correctness / existence of "+ CHROME_BINARY_KEY + " in " + ENV_BUNDLE_NAME + ".properties");
+		}
 		
 		// Set any browser-specific settings here
         DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        return new ChromeDriver(capabilities);
+
+		// Cache this driver for later
+        driver = new ChromeDriver(capabilities);
+        return driver;
 	}
 
 }

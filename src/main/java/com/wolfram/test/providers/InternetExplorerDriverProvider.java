@@ -1,5 +1,6 @@
 package com.wolfram.test.providers;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.openqa.selenium.WebDriver;
@@ -30,7 +31,11 @@ import com.wolfram.core.IWebDriverProvider;
  *
  */
 public final class InternetExplorerDriverProvider implements IWebDriverProvider {
-	private static final String IE_BINARY_PATH = "webdriver.ie.driver";
+	/** The name of the .properties file from which to read driver binary paths */
+	private static final String ENV_BUNDLE_NAME = "environment";
+	
+	/** The key in the above .properties file for the IEDriverServer.exe binary */
+	private static final String IE_BINARY_KEY = "webdriver.ie.driver";
 
 	/** The current singleton instance */
 	private static InternetExplorerDriverProvider instance;
@@ -59,10 +64,15 @@ public final class InternetExplorerDriverProvider implements IWebDriverProvider 
 		if (driver != null) {
 			return driver;
 		}
-		
-		ResourceBundle rb = ResourceBundle.getBundle("environment");
-		System.setProperty(IE_BINARY_PATH, rb.getString(IE_BINARY_PATH));
-		System.out.println("Executing using: " + System.getProperty(IE_BINARY_PATH));
+
+		try {
+			ResourceBundle rb = ResourceBundle.getBundle(ENV_BUNDLE_NAME);
+			System.setProperty(IE_BINARY_KEY, rb.getString(IE_BINARY_KEY));
+			System.out.println("Executing using: " + System.getProperty(IE_BINARY_KEY));
+		} catch (MissingResourceException e) {
+			throw new IllegalArgumentException("Cannot start IEDriverServer.exe: Driver binary not found. Verify " 
+					+ "correctness / existence of "+ IE_BINARY_KEY + " in " + ENV_BUNDLE_NAME + ".properties");
+		}
 
 		// Set any browser-specific settings here
         DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();

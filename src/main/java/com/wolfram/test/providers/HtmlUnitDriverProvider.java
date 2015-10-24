@@ -45,6 +45,9 @@ public final class HtmlUnitDriverProvider implements IWebDriverProvider {
 		// Set any browser-specific settings here
 		DesiredCapabilities capabilities = DesiredCapabilities.htmlUnit();
 		//capabilities.setJavascriptEnabled(true); // Optionally enable JavaScript
-		return new HtmlUnitDriver(capabilities);
+
+		// Cache this driver for later
+		driver = new HtmlUnitDriver(capabilities);
+		return driver;
 	}
 }

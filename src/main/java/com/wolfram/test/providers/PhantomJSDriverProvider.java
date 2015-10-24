@@ -1,5 +1,6 @@
 package com.wolfram.test.providers;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.openqa.selenium.WebDriver;
@@ -19,6 +20,10 @@ import com.wolfram.core.IWebDriverProvider;
  *
  */
 public final class PhantomJSDriverProvider implements IWebDriverProvider {
+	/** The name of the .properties file from which to read driver binary paths */
+	private static final String ENV_BUNDLE_NAME = "environment";
+
+	/** The key in the above .properties file for the ghost / phantomjs driver binary */
 	private static final String PHANTOMJS_BINARY_PATH = "phantomjs.binary.path";
 
 	/** The current singleton instance */
@@ -49,10 +54,15 @@ public final class PhantomJSDriverProvider implements IWebDriverProvider {
 			return driver;
 		}
 		
-		// Set the system property to point to the correct binary
-		ResourceBundle rb = ResourceBundle.getBundle("environment");
-		System.setProperty(PHANTOMJS_BINARY_PATH, rb.getString(PHANTOMJS_BINARY_PATH));
-		System.out.println("Executing using: " + System.getProperty(PHANTOMJS_BINARY_PATH));
+		try {
+			// Set the system property to point to the correct binary
+			ResourceBundle rb = ResourceBundle.getBundle(ENV_BUNDLE_NAME);
+			System.setProperty(PHANTOMJS_BINARY_PATH, rb.getString(PHANTOMJS_BINARY_PATH));
+			System.out.println("Executing using: " + System.getProperty(PHANTOMJS_BINARY_PATH));
+		} catch (MissingResourceException e) {
+			throw new IllegalArgumentException("Cannot instantiate PhantomJSDriver: Driver binary not found. Verify " 
+					+ "correctness / existence of "+ PHANTOMJS_BINARY_PATH + " in " + ENV_BUNDLE_NAME + ".properties");
+		}
 		
 		// Set any browser-specific settings here
 		DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();

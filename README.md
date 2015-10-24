@@ -133,6 +133,24 @@ The test suites can be run by:
 mvn clean package integration-test
 ```
 
+## FAQ
+```java
+java.lang.IllegalArgumentException: Cannot start SomeDriver: Driver binary not found. Verify correctness / existence of some.property.path in environment.properties
+```
+Ensure that the `environment.properties` file that you supply an entry at the indicated path
+
+```java
+java.lang.IllegalArgumentException: Cannot start OperaDriver: Launcher binary not found. Verify correctness / existence of opera.binary in environment.properties
+```
+Ensure that the `environment.properties` file that you supply an entry for `opera.binary` (Opera's `launcher.exe`) if you wish to test Opera
+
+```java
+org.testng.TestNGException: An error occurred while instantiating class com.wolfram.test.cloud.ITWolframDevelopmentPlatform: null
+Caused by: java.lang.ExceptionInInitializerError
+Caused by: java.util.MissingResourceException: Can't find bundle for base name credentials, locale en_US
+```
+Ensure that the `credentials.properties` file is supplied with the entries outlined above
+
 ## License
 
 MIT

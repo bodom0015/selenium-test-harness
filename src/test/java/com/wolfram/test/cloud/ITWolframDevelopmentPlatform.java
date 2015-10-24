@@ -2,6 +2,7 @@ package com.wolfram.test.cloud;
 
 import static org.testng.Assert.*;
 
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.testng.annotations.AfterClass;
@@ -38,17 +39,20 @@ public class ITWolframDevelopmentPlatform extends SeleniumTestBase {
     private SignInPage signIn;
     private DevPlatformHomePage devPlatformHome;
     private NotebookViewPage noteBookView;
-    
-    // Read in credential info in credentials.properties
+
+    // Read in credential info from credentials.properties
+    // TODO: Assumes existence of this file... this could be a little more elegant
 	private static final ResourceBundle rb = ResourceBundle.getBundle("credentials");
 	
     // Test data for success cases:
-	private static final String TEST_ACCOUNT_EMAIL = rb.getString("test.user.valid.email");
-	private final String TEST_ACCOUNT_PASSWORD = rb.getString("test.user.valid.password");
+    // TODO: Assumes existence of these properties... this could be a little more elegant
+	private static String TEST_ACCOUNT_EMAIL = rb.getString("test.user.valid.email");
+	private static String TEST_ACCOUNT_PASSWORD = rb.getString("test.user.valid.password");
 	
 	// Test data for failure cases:
-	private final String INVALID_TEST_EMAIL = rb.getString("test.user.invalid.email");
-	private final String INVALID_TEST_PASSWORD = rb.getString("test.user.invalid.password");
+    // TODO: Assumes existence of these properties... this could be a little more elegant
+	private static String INVALID_TEST_EMAIL = rb.getString("test.user.invalid.email");
+	private static String INVALID_TEST_PASSWORD = rb.getString("test.user.invalid.password");
 	
 	// This hash is saved between tests
 	private String notebookHash;

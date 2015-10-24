@@ -44,6 +44,9 @@ public final class FirefoxDriverProvider implements IWebDriverProvider {
 		
 		// Set any browser-specific settings here
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-		return new FirefoxDriver(capabilities);
+
+		// Cache this driver for later
+		driver = new FirefoxDriver(capabilities);
+		return driver;
 	}
 }

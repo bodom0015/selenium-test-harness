@@ -17,6 +17,10 @@ import com.wolfram.core.IWebDriverProvider;
  *
  */
 public final class SafariDriverProvider implements IWebDriverProvider {
+	/** The name of the .properties file from which to read driver binary paths */
+	//private static final String ENV_BUNDLE_NAME = "environment";
+	
+	/** The key in the above .properties file for the edge driver binary */
 	//private static final String SAFARI_BINARY_PATH = "webdriver.safari.driver";
 
 	/** The current singleton instance */

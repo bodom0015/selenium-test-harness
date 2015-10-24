@@ -1,7 +1,5 @@
 package com.wolfram.test.providers;
 
-import java.util.ResourceBundle;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -18,7 +16,11 @@ import com.wolfram.core.IWebDriverProvider;
  *
  */
 public final class EdgeDriverProvider implements IWebDriverProvider {
-	private static final String EDGE_BINARY_PATH = "webdriver.edge.driver";
+	/** The name of the .properties file from which to read driver binary paths */
+	//private static final String ENV_BUNDLE_NAME = "environment";
+
+	/** The key in the above .properties file for the edge driver binary */
+	//private static final String EDGE_BINARY_PATH = "webdriver.edge.driver";
 
 	/** The current singleton instance */
 	private static EdgeDriverProvider instance;
@@ -47,13 +49,13 @@ public final class EdgeDriverProvider implements IWebDriverProvider {
 		if (driver != null) {
 			return driver;
 		}
-		
-		ResourceBundle rb = ResourceBundle.getBundle("environment");
-		System.setProperty(EDGE_BINARY_PATH, rb.getString(EDGE_BINARY_PATH));
 
 		// Set any browser-specific settings here
 		DesiredCapabilities capabilities = DesiredCapabilities.edge();
-		return new EdgeDriver(capabilities);
+
+		// Cache this driver for later
+		driver = new EdgeDriver(capabilities);
+		return driver;
 	}
 
 }

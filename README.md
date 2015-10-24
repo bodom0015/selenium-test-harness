@@ -15,6 +15,15 @@ In order to familiarize myself with Selenium automation, I have attempted to aut
 
 In doing so, this test harness was born. This project can be used as a model or skeleton to set-up automated multi-browser testing using Selenium and TestNG.
 
+## Dependencies
+
+Required:
+* Install Maven: https://maven.apache.org/index.html
+
+Recommended if using Eclipse IDE:
+* Eclipse m2e plugin: http://www.eclipse.org/m2e/
+* Eclipse TestNG plugin: http://testng.org/doc/eclipse.html
+
 ## Installation
 
 Running the following command should retrieve a copy of the source code:

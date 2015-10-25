@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="PhantomJS Headless Browser Test Suite">
+  <!-- PhantomJS-2.0.0: all tests seemed to be passing, but tests run EXCRUTIATINGLY slowly for some reason -->
+  <!-- PhantomJS-1.9.8: has issues verifying that elements on the page are clickable in the same way that firefox/chrome/opera do -->
+  <test name="PhantomJS Test">
+    <parameter name="browser" value="PhantomJS"/>
+    <classes>
+      <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+    </classes>
+  </test>
+</suite>

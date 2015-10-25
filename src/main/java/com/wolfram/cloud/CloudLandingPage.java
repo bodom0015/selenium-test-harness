@@ -8,8 +8,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.wolfram.core.WebPage;
-
+import test.automation.selenium.core.AbstractWebPage;
 
 /**
  * PageObject representing the "Wolfram Cloud" landing page. This page presents the users
@@ -18,7 +17,7 @@ import com.wolfram.core.WebPage;
  * @author Mike Lambert
  * 
  */
-public class CloudLandingPage extends WebPage {
+public class CloudLandingPage extends AbstractWebPage {
 	/** The Constant expected title for this page. */
 	public static final String PAGE_TITLE = "Wolfram Cloud";
 
@@ -82,7 +81,6 @@ public class CloudLandingPage extends WebPage {
 	 */
 	private CloudLandingPage switchToIFrame() {
 		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(iframeTag));
-		//this.driver.switchTo().frame(iframeTag);
 		return this;
 	}
 	

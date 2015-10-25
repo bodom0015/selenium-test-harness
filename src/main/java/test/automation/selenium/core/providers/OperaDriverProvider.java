@@ -1,4 +1,4 @@
-package com.wolfram.test.providers;
+package test.automation.selenium.core.providers;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import com.wolfram.core.IWebDriverProvider;
+import test.automation.selenium.core.IWebDriverProvider;
 
 /**
  * <p>A provider for the Selenium WebDriver for Opera.</p>
@@ -30,6 +30,12 @@ public final class OperaDriverProvider implements IWebDriverProvider {
 	// See https://github.com/operasoftware/operachromiumdriver/issues/9
 	/** The key in the above .properties file for the opera launcher binary */
 	private static final String OPERALAUNCHER_INSTALL_PATH = "opera.binary";
+
+	/** The key for Opera's "no_quit" option */
+	private static final String OPERA_OPTION_NO_QUIT = "opera.no_quit";
+	
+	/** The key for Opera's "binary" option */
+	//private static final String OPERA_OPTION_BINARY = "opera.binary";
 
 	/** The current singleton instance */
 	private static OperaDriverProvider instance;
@@ -58,37 +64,45 @@ public final class OperaDriverProvider implements IWebDriverProvider {
 		if (driver != null) {
 			return driver;
 		}
+		
+		// Set any browser-specific settings here
+		DesiredCapabilities capabilities = DesiredCapabilities.operaBlink();
 
+		// Slight hack to set the Opera binary... 
+		// FIXME: Why is this necessary?
+		ChromeOptions chromeOptions = new ChromeOptions();
+		
+		// Grab the location of the Opera launcher from the .properties file
 		try {
 			ResourceBundle rb = ResourceBundle.getBundle(ENV_BUNDLE_NAME);
-			System.setProperty(OPERALAUNCHER_INSTALL_PATH, rb.getString(OPERALAUNCHER_INSTALL_PATH));
-			System.out.println("Executing using: " + System.getProperty(OPERALAUNCHER_INSTALL_PATH));
+			String installPath = rb.getString(OPERALAUNCHER_INSTALL_PATH);
+			System.setProperty(OPERALAUNCHER_INSTALL_PATH, installPath);
+			chromeOptions.setBinary(installPath);
+			System.out.println("Executing using launcher: " + installPath);
 		} catch (MissingResourceException e) {
 			throw new IllegalArgumentException("Cannot start OperaDriver: Launcher binary not found. Verify " 
 					+ "correctness / existence of "+ OPERALAUNCHER_INSTALL_PATH + " in " + ENV_BUNDLE_NAME + ".properties");
 		}
-		
+
+		// Grab the location of the operadriver from the .properties file
 		try {
 			ResourceBundle rb = ResourceBundle.getBundle(ENV_BUNDLE_NAME);
-			System.setProperty(OPERADRIVER_BINARY_PATH, rb.getString(OPERADRIVER_BINARY_PATH));
-			System.out.println("Executing using: " + System.getProperty(OPERADRIVER_BINARY_PATH));
+			String installPath = rb.getString(OPERADRIVER_BINARY_PATH);
+			System.setProperty(OPERADRIVER_BINARY_PATH, installPath);
+			System.out.println("Executing using using driver binary: " + installPath);
 		} catch (MissingResourceException e) {
 			throw new IllegalArgumentException("Cannot start OperaDriver: Driver binary not found. Verify " 
 					+ "correctness / existence of "+ OPERADRIVER_BINARY_PATH + " in " + ENV_BUNDLE_NAME + ".properties");
 		}
 		
-		// Set any browser-specific settings here
-		// XXX: Opera capabilities are deprecated, since opera is chromium we can use chrome instead
-		// TODO: investigate operaBlink().. is this for mobile?
-		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-		ChromeOptions options = new ChromeOptions();
+		// Set the chrome options on the Opera (Chromium) Driver
+		capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 		
-		// Set the launcher.exe path we read in earlier
-		options.setBinary(System.getProperty("opera.binary"));
-		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		// Explicitly tell Opera to quit when the driver shuts down
+		capabilities.setCapability(OPERA_OPTION_NO_QUIT, false);
 		
 		// Cache this driver for later
-		driver = new OperaDriver(capabilities/*DesiredCapabilities.operaBlink()*/);
+		driver = new OperaDriver(capabilities);
 		return driver;
 	}
 

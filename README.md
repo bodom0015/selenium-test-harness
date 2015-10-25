@@ -174,6 +174,9 @@ The test suites can be run by:
 mvn clean package integration-test
 ```
 
+## Test Output
+
+
 ## FAQ
 ```java
 java.lang.IllegalArgumentException: Cannot start SomeDriver: Driver binary not found. Verify correctness / existence of some.property.path in environment.properties

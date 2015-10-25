@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Wolfram Cloud Test Suite (HtmlUnit)">  
+<suite name="HtmlUnit Headless Browser Test Suite">  
   <!-- HtmlUnitDriver has some issues signing in with valid credentials -->
   <test name="HtmlUnit Test">
     <parameter name="browser" value="HtmlUnit"/>

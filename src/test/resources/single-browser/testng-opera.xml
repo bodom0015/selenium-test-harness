@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Wolfram Cloud Test Suite (Opera)">
+<suite name="Opera Browser Test Suite">
   <!-- Intermittent failures: often and with mysterious error "failed to close UI debuggers" -->
   <test name="Opera Test">
     <parameter name="browser" value="Opera"/>

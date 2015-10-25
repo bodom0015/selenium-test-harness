@@ -1,17 +1,12 @@
 package com.wolfram.cloud;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.wolfram.core.WebPage;
-
-
+import test.automation.selenium.core.AbstractWebPage;
 
 /**
  * PageObject representing the Sign In page. This page allows the user to authenticate 
@@ -21,14 +16,21 @@ import com.wolfram.core.WebPage;
  * @author Mike Lambert
  * 
  */
-public class SignInPage extends WebPage {
+public class SignInPage extends AbstractWebPage {
 	/** The Constant expected title for this page. */
 	public static final String PAGE_TITLE = "Sign In - Wolfram Development Platform";
 	
 	// Build up / parameterize all parts of the URL
+	/** The base portion of the URL */
 	private static final String BASE_URL = "https://user.wolfram.com";
+	
+	/** The base portion of the URL */
 	private static final String RELATIVE_URL = "/oauth/authorize/cloud";
+	
+	/** The first query parameter of the URL (oauth_token) */
 	private static final String OAUTH_TOKEN_QUERY = "oauth_token=";
+	
+	/** The second query parameter of the URL (oauth_callback) */
 	private static final String OAUTH_WDP_CALLBACK_QUERY = "oauth_callback=https%3A%2F%2Fdev.wolframcloud.com%2Fapp%2Fj_spring_oauth_security_check"
 											   + "%3Fproductname%3DWolfram%20Development%20Platform%26learnabout%3Dhttp%3A%2F%2Fwww.wolfram.com"
 											   + "%2Fdevelopment-platform%26preview%3Dfalse%26logo%3Dwolfram_development_platform";
@@ -37,6 +39,10 @@ public class SignInPage extends WebPage {
 	/** The URL at which to point to start testing this page */
 	public static final String START_URL = DevPlatformHomePage.START_URL;
     
+    /** The sign in form itself. */
+	@CacheLookup
+    private WebElement signInForm;
+	
 	/** The email input. */
 	@CacheLookup
 	private WebElement email;
@@ -46,7 +52,6 @@ public class SignInPage extends WebPage {
     private WebElement password;
     
     /** The sign in button. */
-	@FindBy(how = How.ID, using = "signIn")
 	@CacheLookup
     private WebElement signIn;
 
@@ -141,8 +146,9 @@ public class SignInPage extends WebPage {
 	private DevPlatformHomePage submitValidSignIn() {
 		wait.until(ExpectedConditions.visibilityOf(this.signIn));
 		wait.until(ExpectedConditions.elementToBeClickable(this.signIn));
-		this.password.sendKeys(Keys.ENTER);
-		this.signIn.click();
+		//this.signIn.click();
+		//this.signIn.submit();
+		this.signInForm.submit();
 		return new DevPlatformHomePage(this.driver, this.wait);
 	}
 	
@@ -155,8 +161,9 @@ public class SignInPage extends WebPage {
 	private SignInPage submitInvalidSignIn() {
 		wait.until(ExpectedConditions.visibilityOf(this.signIn));
 		wait.until(ExpectedConditions.elementToBeClickable(this.signIn));
-		this.password.sendKeys(Keys.ENTER);
-		this.signIn.click();
+		//this.signIn.click();
+		//this.signIn.submit();
+		this.signInForm.submit();
 		return new SignInPage(this.driver, this.wait);
 	}
 

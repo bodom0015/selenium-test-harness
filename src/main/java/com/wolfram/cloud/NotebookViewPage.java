@@ -6,9 +6,7 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.wolfram.core.WebPage;
-
-
+import test.automation.selenium.core.AbstractWebPage;
 
 /**
  * PageObject representing the Notebook Viewer page. This page 
@@ -17,7 +15,7 @@ import com.wolfram.core.WebPage;
  * @author Mike Lambert
  * 
  */
-public class NotebookViewPage extends WebPage {
+public class NotebookViewPage extends AbstractWebPage {
 	/** The Constant expected title for this page. */
 	public static final String PAGE_TITLE = "(unnamed) - Wolfram Development Platform";
 
@@ -29,6 +27,8 @@ public class NotebookViewPage extends WebPage {
 
 	/** The URL at which to point to start testing this page */
 	public static final String START_URL = BASE_URL + RELATIVE_URL;
+	
+	/** The URL at which to start testing the "new notebook" operation of this page */
 	public static final String START_URL_CREATE_NEW = "https://dev.wolframcloud.com/app/view/newNotebook?ext=nb";
 	
 	/** The Constant attribute in which to search for text input contents. */

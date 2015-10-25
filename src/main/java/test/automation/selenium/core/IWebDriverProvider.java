@@ -1,4 +1,4 @@
-package com.wolfram.core;
+package test.automation.selenium.core;
 
 import org.openqa.selenium.WebDriver;
 

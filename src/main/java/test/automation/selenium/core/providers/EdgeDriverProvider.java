@@ -1,10 +1,10 @@
-package com.wolfram.test.providers;
+package test.automation.selenium.core.providers;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import com.wolfram.core.IWebDriverProvider;
+import test.automation.selenium.core.IWebDriverProvider;
 
 /**
  * <p>A provider for the Selenium WebDriver for Microsoft Edge.</p>

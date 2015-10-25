@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Wolfram Cloud Test Suite (Internet Explorer)">
+<suite name="Internet Explorer Browser Test Suite">
   <!-- Intermittent failures: very rarely has issues clicking on the first link, and occasionally fails to verify correct page title -->
   <test name="Internet Explorer Test">
     <parameter name="browser" value="IE"/>

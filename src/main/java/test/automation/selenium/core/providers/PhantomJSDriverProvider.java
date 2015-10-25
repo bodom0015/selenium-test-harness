@@ -1,4 +1,4 @@
-package com.wolfram.test.providers;
+package test.automation.selenium.core.providers;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -8,7 +8,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import com.wolfram.core.IWebDriverProvider;
+import test.automation.selenium.core.IWebDriverProvider;
 
 /**
  * <p>A provider for the Selenium WebDriver for PhantomJS.</p>
@@ -66,6 +66,8 @@ public final class PhantomJSDriverProvider implements IWebDriverProvider {
 		
 		// Set any browser-specific settings here
 		DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+		
+		// Enable JavaScript
 		capabilities.setJavascriptEnabled(true);
 		capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, new String[] {"--web-security=no", "--ignore-ssl-errors=yes"});
 		driver = new PhantomJSDriver(capabilities);

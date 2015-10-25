@@ -1,10 +1,10 @@
-package com.wolfram.test.providers;
+package test.automation.selenium.core.providers;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import com.wolfram.core.IWebDriverProvider;
+import test.automation.selenium.core.IWebDriverProvider;
 
 /**
  * <p>A provider for the Selenium WebDriver for HtmlUnit.</p>
@@ -44,7 +44,9 @@ public final class HtmlUnitDriverProvider implements IWebDriverProvider {
 		
 		// Set any browser-specific settings here
 		DesiredCapabilities capabilities = DesiredCapabilities.htmlUnit();
-		//capabilities.setJavascriptEnabled(true); // Optionally enable JavaScript
+		
+		// Optionally enable JavaScript
+		capabilities.setJavascriptEnabled(true);
 
 		// Cache this driver for later
 		driver = new HtmlUnitDriver(capabilities);

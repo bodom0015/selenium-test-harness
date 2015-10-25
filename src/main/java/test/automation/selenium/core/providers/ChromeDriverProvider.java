@@ -1,4 +1,4 @@
-package com.wolfram.test.providers;
+package test.automation.selenium.core.providers;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import com.wolfram.core.IWebDriverProvider;
+import test.automation.selenium.core.IWebDriverProvider;
 
 /**
  * <p>A provider for the Selenium WebDriver for Google Chrome.</p>

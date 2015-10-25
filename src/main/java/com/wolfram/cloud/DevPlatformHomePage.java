@@ -8,9 +8,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.wolfram.core.WebPage;
-
-
+import test.automation.selenium.core.AbstractWebPage;
 
 /**
  * PageObject representing the "Wolfram Development Platform" home page. This
@@ -20,12 +18,15 @@ import com.wolfram.core.WebPage;
  * @author Mike Lambert
  * 
  */
-public class DevPlatformHomePage extends WebPage {
+public class DevPlatformHomePage extends AbstractWebPage {
 	/** The Constant expected title for this page. */
 	public static final String PAGE_TITLE = "Home - Wolfram Development Platform";
 
 	// Build up / parameterize all parts of the URL
+	/** The base portion of the URL */
 	private static final String BASE_URL = "https://dev.wolframcloud.com";
+
+	/** The relative portion of the URL */
 	private static final String RELATIVE_URL = "/app/";
 
 	/** The URL at which to point to start testing this page */

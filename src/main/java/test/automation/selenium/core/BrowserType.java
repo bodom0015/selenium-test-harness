@@ -1,15 +1,16 @@
-package com.wolfram.core;
+package test.automation.selenium.core;
 
 import org.openqa.selenium.WebDriver;
 
-import com.wolfram.test.providers.ChromeDriverProvider;
-import com.wolfram.test.providers.EdgeDriverProvider;
-import com.wolfram.test.providers.FirefoxDriverProvider;
-import com.wolfram.test.providers.HtmlUnitDriverProvider;
-import com.wolfram.test.providers.InternetExplorerDriverProvider;
-import com.wolfram.test.providers.OperaDriverProvider;
-import com.wolfram.test.providers.PhantomJSDriverProvider;
-import com.wolfram.test.providers.SafariDriverProvider;
+import test.automation.selenium.core.providers.ChromeDriverProvider;
+import test.automation.selenium.core.providers.EdgeDriverProvider;
+import test.automation.selenium.core.providers.FirefoxDriverProvider;
+import test.automation.selenium.core.providers.HtmlUnitDriverProvider;
+import test.automation.selenium.core.providers.InternetExplorerDriverProvider;
+import test.automation.selenium.core.providers.OperaDriverProvider;
+import test.automation.selenium.core.providers.PhantomJSDriverProvider;
+import test.automation.selenium.core.providers.SafariDriverProvider;
+
 
 /**
  * An enum representing the different types of browsers. The intention is to keep any 

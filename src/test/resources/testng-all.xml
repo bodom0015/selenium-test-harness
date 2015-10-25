@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Multi Browser Test Suite" parallel="tests">
+<suite name="All Browser Test Suite" parallel="tests">
   <suite-files>
-	<suite-file path="./testng-firefox.xml"/>
-	<suite-file path="./testng-htmlunit.xml"/>
-	<suite-file path="./testng-chrome.xml"/> <!-- requires chromedriver.exe -->
-	<suite-file path="./testng-opera.xml"/> <!-- requires operadriver.exe -->
-	<suite-file path="./testng-ie.xml"/> <!-- requires IEServerDriver.exe -->
-	<suite-file path="./testng-phantomjs.xml"/> <!-- requires phantomjs.exe -->
-	<!-- <suite-file path="./testng-safari.xml"/> --> <!-- requires MAX OSX with safari and binary -->
-	<!-- <suite-file path="./testng-edge.xml"/> --> <!-- requires Windows 10 with edge and binary -->
-   	<!-- TODO: other / mobile / new browsers (android / ios/ etc) -->
+	<suite-file path="./testng-real-browsers.xml"/>
+	<suite-file path="./testng-headless.xml"/>
   </suite-files>
 </suite>

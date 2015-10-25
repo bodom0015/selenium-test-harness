@@ -1,4 +1,4 @@
-package com.wolfram.core;
+package test.automation.selenium.core;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ import com.google.common.base.Predicate;
  * @author Mike Lambert
  * 
  */
-public abstract class WebPage {
+public abstract class AbstractWebPage {
 	/** 
 	 * Number of seconds deemed appropriate 
 	 * to explicitly wait for page / element load 
@@ -47,7 +47,7 @@ public abstract class WebPage {
 	 * Initializes the page using the driver provided and the default wait time. 
 	 * This method will return only after our page title matches the expected title.
 	 */
-	protected WebPage(WebDriver driver) {
+	protected AbstractWebPage(WebDriver driver) {
 		this(driver, new WebDriverWait(driver, waitSeconds));
 	}
 
@@ -56,7 +56,7 @@ public abstract class WebPage {
 	 * the driver and wait provided. This method will return 
 	 * only after our page title matches the expected title.
 	 */
-	protected WebPage(WebDriver driver, WebDriverWait wait) {
+	protected AbstractWebPage(WebDriver driver, WebDriverWait wait) {
 		this.driver = driver;
 		this.wait = wait;
 		

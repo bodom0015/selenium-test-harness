@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Wolfram Cloud Test Suite (PhantomJS)">
+<suite name="Headless Browser Test Suite (Parallel)" parallel="tests" thread-count="2">
   <!-- PhantomJS-2.0.0: all tests seemed to be passing, but tests run EXCRUTIATINGLY slowly for some reason -->
   <!-- PhantomJS-1.9.8: has issues verifying that elements on the page are clickable in the same way that firefox/chrome/opera do -->
   <test name="PhantomJS Test">
@@ -9,4 +9,12 @@
       <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
     </classes>
   </test>
+  
+  <!-- HtmlUnitDriver has some issues signing in with valid credentials -->
+  <test name="HtmlUnit Test">
+   <parameter name="browser" value="HtmlUnit"/>
+   <classes>
+     <class name="com.wolfram.test.cloud.ITWolframDevelopmentPlatform"/>
+   </classes>
+ </test>
 </suite>

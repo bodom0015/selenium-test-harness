@@ -178,6 +178,18 @@ mvn clean package integration-test
 
 
 ## FAQ
+> Is the IEServerDriver.exe supposed to take this long to sendKeys to an input field?
+
+The 64-bit version of the IEServerDriver takes an inexplicable amount of time to type into these fields, despite the tests all passing in the end. 
+More investigation is needed into the cause, but using 32-bit seemed to be a suitable workaround.
+
+> Is the PhantomJSDriver supposed to take this long to finish the tests?
+
+Currently version 2.0.0 of the driver seems to be flawed in that it takes a very long time to execute the test suites.
+Reverting to version 1.9.8 caused the code to run quicker, but some of the tests failed where real browsers pass.
+Further testing is necessary to determine whether or not these issues are related to my driver provider implementation.
+
+> What does this error mean?
 ```java
 java.lang.IllegalArgumentException: Cannot start SomeDriver: Driver binary not found. Verify correctness / existence of some.property.path in environment.properties
 ```

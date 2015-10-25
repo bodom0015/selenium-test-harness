@@ -79,12 +79,6 @@
     
   <!-- Build Settings -->
   <build>
-    <resources>
-      <resource>
-          <directory>src/main/resources</directory>
-          <filtering>true</filtering>
-      </resource>
-    </resources>
     <sourceDirectory>src/main/java/</sourceDirectory>
     <plugins>
       <!-- 
@@ -97,6 +91,13 @@
         <version>2.6.1</version>
         <configuration>
 	      <filesets>
+	        <fileset>
+	          <directory>selenium-binaries</directory>
+	          <includes>
+	            <include>**/*</include>
+	          </includes>
+	          <followSymlinks>false</followSymlinks>
+	        </fileset>
 	        <fileset>
 	          <directory>test-output</directory>
 	          <includes>
@@ -137,15 +138,13 @@
 	      the downloaded binary drivers to the appropriate System properties. Figuring this issue
 	      out would greatly simplify the setup required to run these tests on multiple browsers.
 	  -->
-      <!-- TODO: This would be perfect. Make this work! --> 
-   	  <!-- 
    	  <plugin>
         <groupId>com.lazerycode.selenium</groupId>
         <artifactId>driver-binary-downloader-maven-plugin</artifactId>
         <version>1.0.7</version>
         <configuration>
-            <rootStandaloneServerDirectory>target/selenium-binaries</rootStandaloneServerDirectory>
-            <downloadedZipFileDirectory>target/selenium-binaries/archive</downloadedZipFileDirectory>
+            <rootStandaloneServerDirectory>selenium-binaries</rootStandaloneServerDirectory>
+            <downloadedZipFileDirectory>selenium-binaries/archives</downloadedZipFileDirectory>
         </configuration>
         <executions>
             <execution>
@@ -155,7 +154,6 @@
             </execution>
         </executions>
    	  </plugin>
-   	  -->
    	  
    	  <!-- 
    	  	Maven Failsafe Plugin: adds the "mvn integration-test" goal,
@@ -173,13 +171,8 @@
           </execution>
         </executions>
         <configuration>
-            
-          <!-- 
-	          Sadly, feeding in the Maven properties set above by 
-	          "driver-binary-downloader-maven-plugin" as Java System Properties
-	          did not go as planned..
-          -->
-          <!-- TODO: This would be perfect. Make this work! --> 
+	     
+          <!-- Sadly, this does not seem to work for TestNG -->
           <!-- <systemPropertyVariables>
             <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
             <webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>
@@ -194,7 +187,7 @@
             	currently have issues with these tests. More investigation is needed into
             	how to debug headless browsers using the X11 Windows system. 
             -->
-            <file>src/test/resources/single-browser/testng-firefox.xml</file>
+            <file>src/test/resources/testng-all-dual-parallel.xml</file>
           </suiteXmlFiles>
         </configuration>
       </plugin>

@@ -40,6 +40,7 @@ local.properties
 
 # Maven build output
 target/
+selenium-binaries/
 
 # TestNG / ReportNG output
 test-output/

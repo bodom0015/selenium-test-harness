@@ -133,6 +133,10 @@
           </systemPropertyVariables>
           -->
           <suiteXmlFiles>
+            <!-- 
+            	TODO: it would probably be better to execute testng-headless-parallel.xml 
+            	to make this ready for use with a CI server 
+            -->
             <file>src/test/resources/testng-firefox.xml</file>
           </suiteXmlFiles>
         </configuration>

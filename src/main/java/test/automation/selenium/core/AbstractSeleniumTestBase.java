@@ -59,7 +59,7 @@ public abstract class AbstractSeleniumTestBase {
 	 */
 	@Parameters({ "browser" })
 	@BeforeClass
-	public void initializeTestBrowserWindow(String browser) {
+	protected void initializeTestBrowserWindow(String browser) {
 		// Initialize a driver for the given browser type
 		this.driver = this.initializeDriver(browser);
 
@@ -84,7 +84,7 @@ public abstract class AbstractSeleniumTestBase {
 	 * NOTE: this is currently broken for Opera.
 	 */
 	@AfterClass
-	public void closeBrowserWindows() {
+	protected void closeBrowserWindows() {
 		// FIXME: this does not seem to work for Opera...
 		this.driver.quit();
 	}
@@ -94,7 +94,7 @@ public abstract class AbstractSeleniumTestBase {
 	 * save a screenshot named for each test case.
 	 */
 	@BeforeMethod
-    public void saveTestMethodNameForScreenshot(Method method)
+    protected void saveTestMethodNameForScreenshot(Method method)
     {
 		this.currentTestName = method.getName();
     }
@@ -102,29 +102,39 @@ public abstract class AbstractSeleniumTestBase {
 	/**
 	 * After each test method runs (pass or fail), take a screenshot of the result of the test
 	 * and save it to the directory defined by TEST_OUTPUT_DIR. Screenshot titles will be 
-	 * formatted as: "TESTNAME_BROWSERTYPE.png". If screenshots are not available for the
-	 * current browser type, this method performs prints a warning to the console.
+	 * formatted as: "TESTNAME_BROWSERTYPE.png".
 	 * 
 	 * TODO: Investigate only saving failed test cases. Although passing cases
 	 * would be nice to include as well, in case we wish to manually inspect elements
 	 * on the page.
-	 * 
-	 * @throws IOException if there is an error copying the file from the temp directory to TEST_OUTPUT_DIR
 	 */
 	@AfterMethod
-	public void takeScreenshotOfTestResult() throws IOException {
+	protected void takeScreenshotOfTestResult() throws IOException {
 		// TODO: Use a real Logger (log4j?)
 		System.out.println(String.format("Final page (source) of test is: %s", this.driver.getPageSource()));
-		
 		String destinationFileName = this.browserType.toString() + "-" + this.currentTestName  + ".png";
 		this.takeScreenshotOfPage(destinationFileName);
 	}
 	
+	/** 
+	 * Takes a screenshot of the current browser window and saves it to the provided 
+	 * destinationFilePath. If screenshots are not available for the current browser 
+	 * type, this method performs prints a warning to the console. 
+	 * 
+	 * @param destinationFileName the name of the file to save
+	 * 
+	 * @throws IOException if there is an error copying the file from the temp directory to TEST_OUTPUT_DIR
+	 * @throws WebDriverException if the driver that you are using mysteriously fails to capture a screenshot
+	 */
 	protected void takeScreenshotOfPage(String destinationFileName) {
+		// Ensure that we can cast the driver to one capable of taking a screenshot
 		if (this.driver instanceof TakesScreenshot) {
 			try {
+				// Cast this driver to one that can take a screenshot
+				TakesScreenshot screenshotCapableDriver = ((TakesScreenshot) driver);
+				
 				// Source: Save a screenshot to the temp folder (environment-specific)
-				File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+				File scrFile = screenshotCapableDriver.getScreenshotAs(OutputType.FILE);
 				
 				// Destination: TEST_OUTPUT_DIR, following the formatting outlined above
 				File destFile = new File(TEST_OUTPUT_DIR, destinationFileName);
@@ -134,7 +144,7 @@ public abstract class AbstractSeleniumTestBase {
 			} catch (WebDriverException | IOException e) {
 				// TODO: Use a real Logger (log4j?)
 				System.out.println(String.format("ERROR: Failed to save screenshot (%s) on browser %s", destinationFileName, this.browserType.toString()));
-			} 
+			}
 		} else {
 			// TODO: Use a real Logger (log4j?)
 			System.out.println(String.format("WARNING: 'Take Screenshot' operation not available in browser type: %s", this.browserType.toString()));

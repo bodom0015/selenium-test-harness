@@ -111,7 +111,8 @@ public abstract class AbstractSeleniumTestBase {
 	@AfterMethod
 	protected void takeScreenshotOfTestResult() throws IOException {
 		// TODO: Use a real Logger (log4j?)
-		System.out.println(String.format("Final page (source) of test is: %s", this.driver.getPageSource()));
+		//System.out.println(String.format("Final page (source) of test is: %s", this.driver.getPageSource()));
+		
 		String destinationFileName = this.browserType.toString() + "-" + this.currentTestName  + ".png";
 		this.takeScreenshotOfPage(destinationFileName);
 	}

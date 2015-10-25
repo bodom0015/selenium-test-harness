@@ -99,19 +99,19 @@ public abstract class AbstractWebPage {
 		wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe("browser://startpage/")));
 		wait.until(ExpectedConditions.not(ExpectedConditions.titleIs("Speed Dial")));
 		
-		printOpenWindows();
+		//printOpenWindows();
 		//wait.until(ExpectedConditions.numberOfWindowsToBe(2));
 		ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
 	    driver.switchTo().window(tabs.get(1));
 	    //driver.close();
-		printOpenWindows();
+		//printOpenWindows();
 	    //driver.switchTo().window(tabs.get(0));
 	    
 	    if ("browser://startpage/".equals(driver.getCurrentUrl())) {
 			//wait.until(ExpectedConditions.numberOfWindowsToBe(2));
 	    	ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
 		    driver.switchTo().window(tabs2.get(1));
-			printOpenWindows();
+			//printOpenWindows();
 	    }
 		
 		// Wait for the new window to open (Chrome / Opera seem to need this)

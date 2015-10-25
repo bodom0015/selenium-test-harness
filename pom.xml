@@ -151,15 +151,16 @@
             <!-- Operating systems you want to download binaries for (Only valid options are: windows, linux, osx) -->
             <operatingSystems>
                 <windows>true</windows>
-                <linux>true</linux>
-                <mac>true</mac>
+                <linux>false</linux>
+                <mac>false</mac>
             </operatingSystems>
             
             <!-- Download 32bit binaries -->
             <thirtyTwoBitBinaries>true</thirtyTwoBitBinaries>
             
+            <!-- TODO: 64bit IEDriverServer.exe types very slowly into input fields.. investigate other versions -->
             <!-- Download 64bit binaries -->
-            <sixtyFourBitBinaries>true</sixtyFourBitBinaries>
+            <sixtyFourBitBinaries>false</sixtyFourBitBinaries>
             
             <!-- If set to false will download every version available (Other filters will be taken into account) -->
             <onlyGetLatestVersions>false</onlyGetLatestVersions>
@@ -168,6 +169,9 @@
             <getSpecificExecutableVersions>
                 <!-- Newest version of PhantomJS (2.0.0) seems to hang -->
                 <phantomjs>1.9.8</phantomjs>
+                <googlechrome>2.14</googlechrome>
+                <operachromium>2.14</operachromium>
+                <internetexplorer>2.45.0</internetexplorer>
             </getSpecificExecutableVersions>
             
             <!-- Throw an exception if any specified binary versions that the plugin tries to download do not exist -->

@@ -9,61 +9,71 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <version-guava>16.0.1</version-guava>
+    <version-testng>6.9.8</version-testng>
+    <version-reportng>1.1.4</version-reportng>
+    <version-selenium-java>2.48.2</version-selenium-java>
+    <version-selenium-server-coreless>1.0-20081010.060147</version-selenium-server-coreless>
+    <version-selenium-edge-driver>2.48.2</version-selenium-edge-driver>
+    <version-operadriver>1.5</version-operadriver>
+    <version-phantomjs-driver>1.2.1</version-phantomjs-driver>
+    <version-htmlunit-driver>2.48.2</version-htmlunit-driver>
   </properties>
   
+  <!-- TODO: Clean this up... there may be some overlap with selenium-java and other drivers -->
   <dependencies>
       <dependency>
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
-        <version>6.9.8</version>
+        <version>${version-testng}</version>
       </dependency>
     
 	<dependency>
 		<groupId>org.uncommons</groupId>
 		<artifactId>reportng</artifactId>
-		<version>1.1.4</version>
+		<version>${version-reportng}</version>
 	</dependency>
       
 	<dependency>
 		<groupId>org.seleniumhq.selenium</groupId>
 		<artifactId>selenium-java</artifactId>
-		<version>2.48.2</version>
+		<version>${version-selenium-java}</version>
 	</dependency>
 	
 	 <dependency>
 		<groupId>org.seleniumhq.selenium</groupId>
 		<artifactId>selenium-edge-driver</artifactId>
-		<version>2.48.2</version>
+		<version>${selenium-edge-driver}</version>
 	</dependency>
 	
 	<dependency>
 		<groupId>com.opera</groupId>
 		<artifactId>operadriver</artifactId>
-		<version>1.5</version>
+		<version>${version-operadriver}</version>
 	</dependency>
 
 	<dependency>
 	    <groupId>com.codeborne</groupId>
 	    <artifactId>phantomjsdriver</artifactId>
-	    <version>1.2.1</version>
+	    <version>${version-phantomjs-driver}</version>
 	</dependency>
 	
 	<dependency>
 		<groupId>org.seleniumhq.selenium</groupId>
 		<artifactId>selenium-htmlunit-driver</artifactId>
-		<version>2.48.2</version>
+		<version>${version-htmlunit-driver}</version>
 	</dependency>
 	
     <dependency>
 		<groupId>org.openqa.selenium.server</groupId>
 		<artifactId>selenium-server-coreless</artifactId>
-		<version>1.0-20081010.060147</version>
+		<version>${version-selenium-server-coreless}</version>
 	</dependency>
 	
 	<dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>16.0.1</version>
+      <version>${version-guava}</version>
     </dependency>
   </dependencies>
     
@@ -77,11 +87,37 @@
     </resources>
     <sourceDirectory>src/main/java/</sourceDirectory>
     <plugins>
+      <!-- 
+	      Maven Clean Plugin: adds the "mvn clean" goal which clears out temporary test data, 
+	      ensuring we do not have stale artifacts from previous tests that could potentially interfere 
+      -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clean-plugin</artifactId>
         <version>2.6.1</version>
+        <configuration>
+	      <filesets>
+	        <fileset>
+	          <directory>test-output</directory>
+	          <includes>
+	            <include>**/*</include>
+	          </includes>
+	          <followSymlinks>false</followSymlinks>
+	        </fileset>
+	        <fileset>
+	          <directory>test-screenshots</directory>
+	          <includes>
+	            <include>**/*</include>
+	          </includes>
+	          <followSymlinks>false</followSymlinks>
+	        </fileset>
+	      </filesets>
+	    </configuration>
       </plugin>
+      
+      <!-- 
+	      Maven Compiler Plugin: and "mvn compile" goal which compiles to the JDK version of our choice.
+      -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.3</version>
@@ -90,8 +126,18 @@
           <target>1.7</target>
         </configuration>
       </plugin>
+      
+      <!-- 
+	      Maven Selenium Driver Binary Downloader Plugin: adds the "selenium" goal to 
+	      automatically detect environment (OS/Version) and download the appropriate selenium 
+	      drivers for the current environment. Ideally, we would want to use a maven plugin 
+	      like this one to fetch the WebDriver binaries and set their paths as Maven properties.
+	      
+	      I attempted to use this plugin, and it works for the most part, but I had issues linking
+	      the downloaded binary drivers to the appropriate System properties. Figuring this issue
+	      out would greatly simplify the setup required to run these tests on multiple browsers.
+	  -->
       <!-- TODO: This would be perfect. Make this work! --> 
-      <!-- Ideally, we would want to use a maven plugin like this one to fetch the WebDriver binaries and set their paths as Maven properties -->
    	  <!-- 
    	  <plugin>
         <groupId>com.lazerycode.selenium</groupId>
@@ -110,6 +156,10 @@
         </executions>
    	  </plugin>
    	  -->
+   	  
+   	  <!-- 
+   	  	Maven Failsafe Plugin: adds the "mvn integration-test" goal,
+   	  -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
@@ -123,8 +173,13 @@
           </execution>
         </executions>
         <configuration>
+            
+          <!-- 
+	          Sadly, feeding in the Maven properties set above by 
+	          "driver-binary-downloader-maven-plugin" as Java System Properties
+	          did not go as planned..
+          -->
           <!-- TODO: This would be perfect. Make this work! --> 
-          <!-- Feed in the Maven properties set above by "driver-binary-downloader-maven-plugin" as Java System Properties -->
           <!-- <systemPropertyVariables>
             <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
             <webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>

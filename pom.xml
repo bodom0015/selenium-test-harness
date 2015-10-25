@@ -145,6 +145,45 @@
         <configuration>
             <rootStandaloneServerDirectory>selenium-binaries</rootStandaloneServerDirectory>
             <downloadedZipFileDirectory>selenium-binaries/archives</downloadedZipFileDirectory>
+            <!-- This will ensure that the plugin only downloads binaries for the current OS, this will override anything specified in the <operatingSystems> configuration -->
+            <onlyGetDriversForHostOperatingSystem>false</onlyGetDriversForHostOperatingSystem>
+            
+            <!-- Operating systems you want to download binaries for (Only valid options are: windows, linux, osx) -->
+            <operatingSystems>
+                <windows>true</windows>
+                <linux>true</linux>
+                <mac>true</mac>
+            </operatingSystems>
+            
+            <!-- Download 32bit binaries -->
+            <thirtyTwoBitBinaries>true</thirtyTwoBitBinaries>
+            
+            <!-- Download 64bit binaries -->
+            <sixtyFourBitBinaries>true</sixtyFourBitBinaries>
+            
+            <!-- If set to false will download every version available (Other filters will be taken into account) -->
+            <onlyGetLatestVersions>false</onlyGetLatestVersions>
+            
+            <!-- Provide a list of drivers and binary versions to download (this is a map so only one version can be specified per driver) -->
+            <getSpecificExecutableVersions>
+                <!-- Newest version of PhantomJS (2.0.0) seems to hang -->
+                <phantomjs>1.9.8</phantomjs>
+            </getSpecificExecutableVersions>
+            
+            <!-- Throw an exception if any specified binary versions that the plugin tries to download do not exist -->
+            <throwExceptionIfSpecifiedVersionIsNotFound>false</throwExceptionIfSpecifiedVersionIsNotFound>
+            
+            <!-- Number of times to attempt to download each file -->
+            <fileDownloadRetryAttempts>2</fileDownloadRetryAttempts>
+            
+            <!-- Overwrite any existing binaries that have been downloaded and extracted -->
+            <overwriteFilesThatExist>false</overwriteFilesThatExist>
+            
+            <!-- Check file hashes of downloaded files. -->
+            <checkFileHashes>true</checkFileHashes>
+            
+            <!-- Location of a custom repository map -->
+            <customRepositoryMap>src/main/resources/selenium-binary-repos.xml</customRepositoryMap>
         </configuration>
         <executions>
             <execution>
@@ -171,6 +210,24 @@
           </execution>
         </executions>
         <configuration>
+	     <systemProperties>
+	       <property>
+	         <name>webdriver.chrome.driver</name>
+	         <value>${webdriver.chrome.driver}</value>
+	       </property>
+	       <property>
+	         <name>webdriver.opera.driver</name>
+	         <value>${webdriver.opera.driver}</value>
+	       </property>
+	       <property>
+	         <name>webdriver.ie.driver</name>
+	         <value>${webdriver.ie.driver}</value>
+	       </property>
+	       <property>
+	         <name>phantomjs.binary.path</name>
+	         <value>${phantomjs.binary.path}</value>
+	       </property>
+	     </systemProperties>
 	     
           <!-- Sadly, this does not seem to work for TestNG -->
           <!-- <systemPropertyVariables>

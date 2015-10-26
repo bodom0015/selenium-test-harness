@@ -9,6 +9,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -102,15 +103,30 @@ public abstract class AbstractSeleniumTestBase {
 	/**
 	 * After each test method runs (pass or fail), take a screenshot of the result of the test
 	 * and save it to the directory defined by TEST_OUTPUT_DIR. Screenshot titles will be 
-	 * formatted as: "TESTNAME_BROWSERTYPE.png".
+	 * formatted as: "BROWSER-TESTNAME.png".
 	 * 
 	 * TODO: Investigate only saving failed test cases. Although passing cases
 	 * would be nice to include as well, in case we wish to manually inspect elements
 	 * on the page.
 	 */
 	@AfterMethod
-	protected void takeScreenshotOfTestResult() throws IOException {
+	protected void takeScreenshotOfTestResult(ITestResult result) throws IOException {
+		String testResult;
+		switch (result.getStatus()) {
+			case ITestResult.SUCCESS:
+				testResult = "PASS";
+				break;
+			case ITestResult.SKIP:
+				testResult = "SKIP";
+				break;
+			default:
+			case ITestResult.FAILURE:
+				testResult = "FAIL";
+				break;
+		}
+		
 		// TODO: Use a real Logger (log4j?)
+		System.out.println("Result of test \"" + this.currentTestName + "\" on " + this.browserType.toString() + ": " + testResult);
 		//System.out.println(String.format("Final page (source) of test is: %s", this.driver.getPageSource()));
 		
 		String destinationFileName = this.browserType.toString() + "-" + this.currentTestName  + ".png";

@@ -175,7 +175,12 @@ mvn clean package integration-test
 ```
 
 ## Test Output
-
+1. All test cases will attempt to output a snapshot to the `test-screenshots` folder.
+2. ReportNG will spit out a generated HTML report of the results. 
+  * If TestNG was invoked via Maven command line, the Maven Failsafe Plugin will spit out the generated report will be located in the `target/failsafe-reports`.
+  * If TestNG was invoked via Eclipse, the generated report will instead be found in the `test-output` folder.
+  
+NOTE: All of these directories are deleted when running a `mvn clean` operation.
 
 ## FAQ
 > Is the IEServerDriver.exe supposed to take this long to sendKeys to an input field?

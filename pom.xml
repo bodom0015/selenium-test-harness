@@ -32,6 +32,12 @@
 		<groupId>org.uncommons</groupId>
 		<artifactId>reportng</artifactId>
 		<version>${version-reportng}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+          </exclusion>
+        </exclusions>
 	</dependency>
       
 	<dependency>
@@ -173,7 +179,24 @@
           </execution>
         </executions>
         <configuration>
-            
+          <!-- 
+          	TODO: it would probably be better to execute testng-headless-parallel.xml 
+           	to make this ready for use with a CI server. However, both headless browsers
+           	currently have issues with these tests. More investigation is needed into
+           	how to debug headless browsers using the X11 Windows system. 
+          -->
+          <suiteXmlFiles>
+            <file>src/test/resources/testng-real-browsers-parallel.xml</file>
+          </suiteXmlFiles>
+           <!-- Setting properties for test execution -->
+	       <properties>
+	         <!-- Setting ReportNG listeners -->
+	         <property>
+	           <name>listener</name>
+	           <value>org.uncommons.reportng.HTMLReporter, org.uncommons.reportng.JUnitXMLReporter</value>
+	         </property>
+	      </properties>
+	      
           <!-- 
 	          Sadly, feeding in the Maven properties set above by 
 	          "driver-binary-downloader-maven-plugin" as Java System Properties
@@ -187,15 +210,6 @@
             <phantomjs.binary.path>${phantomjs.binary.path}</phantomjs.binary.path>
           </systemPropertyVariables>
           -->
-          <suiteXmlFiles>
-            <!-- 
-            	TODO: it would probably be better to execute testng-headless-parallel.xml 
-            	to make this ready for use with a CI server. However, both headless browsers
-            	currently have issues with these tests. More investigation is needed into
-            	how to debug headless browsers using the X11 Windows system. 
-            -->
-            <file>src/test/resources/single-browser/testng-firefox.xml</file>
-          </suiteXmlFiles>
         </configuration>
       </plugin>
     </plugins>

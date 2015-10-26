@@ -133,6 +133,14 @@
         </configuration>
       </plugin>
       
+      <!-- Maven Javadoc Plugin: scrapes JavaDoc from our source code and 
+      generates a browsable HTML page using its contents -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+      </plugin>
+      
       <!-- 
 	      Maven Selenium Driver Binary Downloader Plugin: adds the "selenium" goal to 
 	      automatically detect environment (OS/Version) and download the appropriate selenium 

@@ -24,7 +24,7 @@ public abstract class AbstractWebPage {
 	protected static final int waitSeconds = 15;
 
 	/**
-	 * A reusable construct allowing us to wait the above amount of seconds.
+	 * The WebDriver that we wish to use to navigate this page.
 	 */
     protected final WebDriver driver;
 
@@ -133,7 +133,9 @@ public abstract class AbstractWebPage {
 		return previousHandle;
 	}
 	
-	public void printOpenWindows() {
+	/** Debug method to print / switch to window handles. */
+	@SuppressWarnings("unused")
+	private void printOpenWindows() {
 		ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
 		for (String handle : tabs) {
 			driver.switchTo().window(handle);

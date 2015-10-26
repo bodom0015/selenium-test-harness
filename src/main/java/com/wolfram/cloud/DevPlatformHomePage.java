@@ -83,7 +83,7 @@ public class DevPlatformHomePage extends AbstractWebPage {
 	 * @return the dev platform home page
 	 */
 	// Open the dropdown menu
-    public DevPlatformHomePage openNewFileDropdown() {
+    private DevPlatformHomePage openNewFileDropdown() {
 		wait.until(ExpectedConditions.elementToBeClickable(this.newNotebookBtnDropdown));
 		this.newNotebookBtnDropdown.click();
 		return this;
@@ -94,7 +94,7 @@ public class DevPlatformHomePage extends AbstractWebPage {
 	 *
 	 * @return the notebook view page
 	 */
-	public NotebookViewPage clickNewNotebookButton() {
+	private NotebookViewPage clickNewNotebookButton() {
 		wait.until(ExpectedConditions.elementToBeClickable(this.newNBBtn));
 		this.newNBBtn.click();
 

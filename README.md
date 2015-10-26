@@ -174,6 +174,11 @@ The test suites can be run by:
 mvn clean package integration-test
 ```
 
+## API Documentation
+Maven can generate a set of browsable JavaDoc HTML from this library! Simply run the `mvn javadoc:javadoc` goal. 
+Once the Maven task completes, you should now be able to open your browser to `target/site/apidocs/index.html` to 
+browse the JavaDoc for the project.  
+
 ## Test Output
 1. All test cases will attempt to output a snapshot to the `test-screenshots` folder.
 2. ReportNG will spit out a generated HTML report of the results. 
